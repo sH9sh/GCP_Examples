@@ -18,9 +18,13 @@ public class HttpMethod implements HttpFunction {
                 response.setStatusCode(HttpURLConnection.HTTP_OK);
                 writer.write("Get request was successful");
                 break;
-            case "PUT":
-                response.setStatusCode(HttpURLConnection.HTTP_FORBIDDEN);
-                writer.write("Forbidden");
+            case "POST":
+                response.setStatusCode(HttpURLConnection.HTTP_OK);
+                writer.write("POST request was successful");
+                break;
+            case "DELETE":
+                response.setStatusCode(HttpURLConnection.HTTP_OK);
+                writer.write("DELETE request worked successfully");
                 break;
             default:
                 response.setStatusCode(HttpURLConnection.HTTP_BAD_METHOD);
