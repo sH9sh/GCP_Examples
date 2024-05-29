@@ -10,4 +10,4 @@ steps:
       - --source=.
       - --trigger-http
       - --runtime=java17
-      - --entry-point com.example.GCPexamples.HttpMethod
+      - --entry-point com.example.GCPexamples.questions.HttpMethod
