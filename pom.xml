@@ -21,6 +21,13 @@
 	<dependencies>
 		<dependency>
 			<groupId>com.google.cloud</groupId>
+			<artifactId>libraries-bom</artifactId>
+			<version> 26.35.0</version>
+			<type>pom</type>
+			<scope>import</scope>
+		</dependency>
+		<dependency>
+			<groupId>com.google.cloud</groupId>
 			<artifactId>spring-cloud-gcp-starter</artifactId>
 		</dependency>
 		<dependency>
@@ -93,7 +100,7 @@
 				<artifactId>function-maven-plugin</artifactId>
 				<version>0.11.0</version>
 				<configuration>
-					<functionTarget>functions.HttpFunctions</functionTarget>
+					<functionTarget>functions.PubSub</functionTarget>
 				</configuration>
 			</plugin>
 			<plugin>
