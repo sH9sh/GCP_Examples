@@ -21,6 +21,11 @@
 	<dependencies>
 		<dependency>
 			<groupId>com.google.cloud</groupId>
+			<artifactId>google-cloud-storage</artifactId>
+			<version>2.36.1</version>
+		</dependency>
+		<dependency>
+			<groupId>com.google.cloud</groupId>
 			<artifactId>libraries-bom</artifactId>
 			<version> 26.35.0</version>
 			<type>pom</type>
@@ -58,10 +63,10 @@
 			<scope>test</scope>
 		</dependency>
 		<dependency>
-			<groupId>com.google.cloud</groupId>
-			<artifactId>google-cloud-storage</artifactId>
+			<groupId>com.google.code.gson</groupId>
+			<artifactId>gson</artifactId>
+			<version>2.10.1</version>
 		</dependency>
-
 
 	</dependencies>
 	<dependencyManagement>
@@ -104,7 +109,7 @@
 				<artifactId>function-maven-plugin</artifactId>
 				<version>0.11.0</version>
 				<configuration>
-					<functionTarget>functions.PubSub</functionTarget>
+					<functionTarget>com.example.GCPexamples.example4.PubSubFunction</functionTarget>
 				</configuration>
 			</plugin>
 			<plugin>

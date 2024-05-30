@@ -7,6 +7,7 @@ import com.google.cloud.storage.BlobId;
 import com.google.cloud.storage.BlobInfo;
 import com.google.cloud.storage.Storage;
 import com.google.cloud.storage.StorageOptions;
+import com.google.gson.Gson;
 import com.google.gson.JsonObject;
 import com.google.gson.JsonParser;
 
@@ -16,8 +17,9 @@ import java.util.logging.Logger;
 
 public class PubSubFunction implements BackgroundFunction<PubSubMsg2> {
     private static final Logger logger = Logger.getLogger(PubSub.class.getName());
-    private static final String BUCKET_NAME = "cloudBucket";
+    private static final String BUCKET_NAME = "buckets_of_trouble";
     private final Storage storage = StorageOptions.getDefaultInstance().getService();
+    private static final Gson gson = new Gson();
 
     @Override
     public void accept(PubSubMsg2 message, Context context){
@@ -27,19 +29,13 @@ public class PubSubFunction implements BackgroundFunction<PubSubMsg2> {
         }
 
         String decodeData = new String(Base64.getDecoder().decode(message.getData()), StandardCharsets.UTF_8);
-        logger.info("Decoded pubSub message data: " + decodeData);
+        JsonObject jsonObject = gson.fromJson(decodeData, JsonObject.class);
+
 
         //Parse JSON message
-        String filename;
-        String fileContent;
-        try{
-            JsonObject jsonObject = JsonParser.parseString(decodeData).getAsJsonObject();
-            filename = jsonObject.get("filename").getAsString();
-            fileContent = jsonObject.get("fileContent").getAsString();
-        } catch(Exception e){
-            logger.severe("Failed to parse pubSub message: " + e.getMessage());
-            return;
-        }
+        String filename = jsonObject.get("filename").getAsString();
+        String fileContent = jsonObject.get("fileContent").getAsString();
+
 
         // Write to Google Cloud Storage
         BlobId blobId = BlobId.of(BUCKET_NAME, filename);
