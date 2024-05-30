@@ -57,6 +57,10 @@
 			<version>1.4.0</version>
 			<scope>test</scope>
 		</dependency>
+		<dependency>
+			<groupId>com.google.cloud</groupId>
+			<artifactId>google-cloud-storage</artifactId>
+		</dependency>
 
 
 	</dependencies>
