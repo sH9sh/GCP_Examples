@@ -10,4 +10,4 @@ steps:
       - --source=.
       - --trigger-http
       - --runtime=java17
-      - --entry-point com.example.GCPexamples.example4.PubSubFunction
+      - --entry-point com.example.GCPexamples.example5.PubSubFunction5
