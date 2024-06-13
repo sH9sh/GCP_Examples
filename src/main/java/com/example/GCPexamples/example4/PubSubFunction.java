@@ -1,46 +1,39 @@
 package com.example.GCPexamples.example4;
 
-import com.example.GCPexamples.example3.PubSub;
-import com.google.cloud.functions.BackgroundFunction;
-import com.google.cloud.functions.Context;
-import com.google.cloud.storage.BlobId;
-import com.google.cloud.storage.BlobInfo;
-import com.google.cloud.storage.Storage;
-import com.google.cloud.storage.StorageOptions;
+import com.google.cloud.functions.CloudEventsFunction;
 import com.google.gson.Gson;
-import com.google.gson.JsonObject;
-import com.google.gson.JsonParser;
+import io.cloudevents.CloudEvent;
 
 import java.nio.charset.StandardCharsets;
 import java.util.Base64;
 import java.util.logging.Logger;
 
-public class PubSubFunction implements BackgroundFunction<PubSubMsg2> {
-    private static final Logger logger = Logger.getLogger(PubSub.class.getName());
-    private static final String BUCKET_NAME = "buckets_of_trouble";
-    private final Storage storage = StorageOptions.getDefaultInstance().getService();
+public class PubSubFunction implements CloudEventsFunction {
+    private static final Logger logger = Logger.getLogger(PubSubFunction.class.getName());
+    private static final String BUCKET_NAME = "question4-bucket";
+    private final StorageHandler storageHandler = new StorageHandler();
     private static final Gson gson = new Gson();
 
     @Override
-    public void accept(PubSubMsg2 message, Context context){
-        if(message == null || message.getData() == null){
-            logger.severe("Invalid pubSub message: null or missing data");
-            return;
+    public void accept(final CloudEvent event){
+        if(event.getData() != null){
+            final String cloudEventData = new String(event.getData().toBytes(), StandardCharsets.UTF_8);
+            final PubSubBody body = gson.fromJson(cloudEventData, PubSubBody.class);
+
+            final String encodedData = body.getMessage().getData();
+            final String decodedData = new String(Base64.getDecoder().decode(encodedData), StandardCharsets.UTF_8);
+            logger.info("Message received - " + decodedData);
+
+            final FileDetails fileDetails = gson.fromJson(decodedData, FileDetails.class);
+            logger.info("File name - " + fileDetails.getFileName());
+
+            // create bucket
+            storageHandler.createBucket(BUCKET_NAME);
+
+            // store file
+            final String path = storageHandler.uploadFile(BUCKET_NAME, fileDetails.getFileName(), fileDetails.getFileContent());
+            logger.info("File created at - " + path);
+
         }
-
-        String decodeData = new String(Base64.getDecoder().decode(message.getData()), StandardCharsets.UTF_8);
-        JsonObject jsonObject = gson.fromJson(decodeData, JsonObject.class);
-
-
-        //Parse JSON message
-        String filename = jsonObject.get("filename").getAsString();
-        String fileContent = jsonObject.get("fileContent").getAsString();
-
-
-        // Write to Google Cloud Storage
-        BlobId blobId = BlobId.of(BUCKET_NAME, filename);
-        BlobInfo blobInfo = BlobInfo.newBuilder(blobId).build();
-        storage.create(blobInfo, fileContent.getBytes(StandardCharsets.UTF_8));
-        logger.info("File " + filename + " successfully written to bucket " + BUCKET_NAME);
     }
 }

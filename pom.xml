@@ -5,7 +5,7 @@
 	<parent>
 		<groupId>org.springframework.boot</groupId>
 		<artifactId>spring-boot-starter-parent</artifactId>
-		<version>3.2.6</version>
+		<version>3.1.10</version>
 		<relativePath/> <!-- lookup parent from repository -->
 	</parent>
 	<groupId>com.example</groupId>
@@ -95,6 +95,12 @@
 				<type>pom</type>
 				<scope>import</scope>
 			</dependency>
+			<dependency>
+				<groupId>com.google.cloud.functions.invoker</groupId>
+				<artifactId>java-function-invoker</artifactId>
+				<version>1.0.0-alpha-2-rc5</version>
+				<scope>test</scope>
+			</dependency>
 		</dependencies>
 	</dependencyManagement>
 
@@ -119,7 +125,8 @@
 				<artifactId>function-maven-plugin</artifactId>
 				<version>0.11.0</version>
 				<configuration>
-					<functionTarget>com.example.GCPexamples.example5.PubSubFunction5</functionTarget>
+					<functionTarget>com.example.GCPexamples.example4.PubSubFunction</functionTarget>
+					<port>8080</port>
 				</configuration>
 			</plugin>
 			<plugin>
