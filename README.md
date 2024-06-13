@@ -10,16 +10,12 @@ Add code for trigger function. Have the function class implement CloudEventsFunc
 
 Ensure cloud functions plugin in your pom.xml references the trigger function class inside functionTarget tags.
 
-
-<plugin>
 	<groupId>com.google.cloud.functions</groupId>
 	<artifactId>function-maven-plugin</artifactId>
 	<version>${function-maven-plugin.version}</version>
 		<configuration>
 			<functionTarget>com.gcp.examples.cloud.function.pubsub.trigger.PubsubTriggerFunction</functionTarget>
 		</configuration>
-
-			</plugin>
 
 Deploy function inside your folder project on CLI.
 Edit --entry point, --trigger-topic, --run-service-account to your own names.
