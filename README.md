@@ -20,14 +20,14 @@ Ensure cloud functions plugin in your pom.xml references the trigger function cl
 Deploy function inside your folder project on CLI.
 Edit --entry point, --trigger-topic, --run-service-account to your own names.
 
-gcloud functions deploy myq4-example --gen2 --entry-point com.example.GCPexamples.example4.PubSubFunction --runtime java17 --region=us-central1 --trigger-topic=question4-topic --run-service-account=gcp-bucket-service@gcp-examples-424113.iam.gserviceaccount.com --source=. --memory 512MB
+<code>gcloud functions deploy myq4-example --gen2 --entry-point com.example.GCPexamples.example4.PubSubFunction --runtime java17 --region=us-central1 --trigger-topic=question4-topic --run-service-account=gcp-bucket-service@gcp-examples-424113.iam.gserviceaccount.com --source=. --memory 512MB</code>
 
 Here if you set ‘--source=target’ this will throw an error ‘Unable to load instance of class’. Ensure --source=.
 
 Publish message to pubsub topic with file-name and file content.
 
 
-gcloud pubsub topics publish question4-topic --message="{\"fileName\":\"test1.txt\",\"fileContent\":\"Hello World\"}"
+<code>gcloud pubsub topics publish question4-topic --message="{\"fileName\":\"test1.txt\",\"fileContent\":\"Hello World\"}"</code>
 
 Open cloud storage bucket on GCP to view file with ‘Hello World’ text.
 
