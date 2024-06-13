@@ -12,12 +12,12 @@ Ensure cloud functions plugin in your pom.xml references the trigger function cl
 
 
 <plugin>
-				<groupId>com.google.cloud.functions</groupId>
-				<artifactId>function-maven-plugin</artifactId>
-				<version>${function-maven-plugin.version}</version>
-				<configuration>
-					<functionTarget>com.gcp.examples.cloud.function.pubsub.trigger.PubsubTriggerFunction</functionTarget>
-				</configuration>
+	<groupId>com.google.cloud.functions</groupId>
+	<artifactId>function-maven-plugin</artifactId>
+	<version>${function-maven-plugin.version}</version>
+		<configuration>
+			<functionTarget>com.gcp.examples.cloud.function.pubsub.trigger.PubsubTriggerFunction</functionTarget>
+		</configuration>
 
 			</plugin>
 
