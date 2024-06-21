@@ -1,4 +1,4 @@
-package com.example.GCPexamples.example5;
+package com.example.GCPexamples.example5.model;
 
 import lombok.*;
 
