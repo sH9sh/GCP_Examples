@@ -6,8 +6,7 @@ Add a subscription to topic.
 
 Add code to accept a pubSub message. 
 
-
-
+<code>
   package com.example.GCPexamples.example3;
   import com.google.cloud.functions.BackgroundFunction;
   import com.google.cloud.functions.Context;
@@ -30,11 +29,12 @@ Add code to accept a pubSub message.
         return;
     }
 }
+</code>
 
 Add a PubSubMessage DTO class. 
 
 
-
+<code>
 package com.example.GCPexamples.example3;
 
 import java.util.Map;
@@ -81,6 +81,7 @@ public class PubSubMessage {
     }
 
 }
+</code>
 
 Run maven clean package to generate new JAR file.
 
