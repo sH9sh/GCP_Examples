@@ -9,16 +9,12 @@ Add code to accept a pubSub message.
 
 
 package com.example.GCPexamples.example3;
-
 import com.google.cloud.functions.BackgroundFunction;
 import com.google.cloud.functions.Context;
-
 import java.nio.charset.StandardCharsets;
 import java.util.Base64;
 import java.util.logging.Logger;
-
 public class PubSub implements BackgroundFunction<PubSubMessage> {
-
     private static final Logger logger = Logger.getLogger(PubSub.class.getName());
 
     @Override
