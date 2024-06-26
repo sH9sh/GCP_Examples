@@ -83,22 +83,21 @@ Run maven clean package to generate new JAR file.
 Deploy function with package and class name 
 
 
+<code>
+	gcloud functions deploy pubSub-function 
+	--entry-point com.example.GCPexamples.example3.PubSub 
+	--runtime java17 
+	--trigger-topic AppTopic 
+	--allow-unauthenticated 
+	--gen2 
+	--source=target
+</code>
 
-gcloud functions deploy pubSub-function 
---entry-point com.example.GCPexamples.example3.PubSub 
---runtime java17 
---trigger-topic AppTopic 
---allow-unauthenticated 
---gen2 
---source=target
- 
 Publish message with command below 
-
-
-
-gcloud pubsub topics publish my-topic --message "Hello, World!"
-View function logs to observe message
-
+<code>
+	gcloud pubsub topics publish my-topic --message "Hello, World!"
+	View function logs to observe message
+</code>
 
 
 <b>Question 4</b>
