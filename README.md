@@ -4,7 +4,6 @@ You can define a custom build process by adding a cloudbuild.yaml file. However 
 This can be done by adding cloudbuild.yaml file.
 <code>steps:
   - name: 'gcr.io/google.com/cloudsdktool/cloud-sdk'
-
     args:
       - gcloud
       - functions
