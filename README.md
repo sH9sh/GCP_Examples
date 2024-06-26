@@ -1,3 +1,82 @@
+<b>Question 1</b>
+
+You can define a custom build process by adding a cloudbuild.yaml file. However you can also deploy via gcloud command line without this.
+This can be done by adding cloudbuild.yaml file.
+<code>steps:
+  - name: 'gcr.io/google.com/cloudsdktool/cloud-sdk'
+
+    args:
+      - gcloud
+      - functions
+      - deploy
+      - function-gcp
+      - --region=us-central1
+      - --source=.
+      - --trigger-http
+      - --runtime=java17
+      - --entry-point com.example.GCPexamples.example5.PubSubFunction5</code>
+
+This can then be triggered by the below command:
+<code>gcloud builds submit --config cloudbuild.yaml .</code>
+<br/>
+
+Otherwise, add code for the function to be deployed. The class will implement the HttpFunction interface. It will use the service method which has two parameters - HttpRequest and HttpResponse.
+<code>public class HttpMethod implements HttpFunction {
+    private static final Logger logger = Logger.getLogger(ScheduledFunction.class.getName());
+    @Override
+    public void service(HttpRequest request, HttpResponse response) throws Exception {
+
+        LocalDateTime currentTime = LocalDateTime.now();
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
+        String formattedTime = currentTime.format(formatter);
+
+        logger.info("Current Time: " + formattedTime);
+    }}<code/>
+<br/>
+Ensure to add necessary dependencies like cloud functions. Also make sure to reference the function to be deployed under 'function-maven-plugin' inside functionTarget tags.
+<br/>
+Deploy function via gcloud command line:
+<code>gcloud functions deploy HttpMethod
+    --entry-point com.example.GCPexamples.example1.HttpMethod
+    --runtime java17
+    --trigger-http
+    --memory 512MB
+    --region us-central1
+</code>
+<br/>
+<br/>
+
+<b>Question 2</b>
+<br/>
+Add code for scheduled function. This also implements the HttpFunction interface and uses the service method. Add code to log the current time when the function is triggered.
+<code>public class ScheduledFunction implements HttpFunction {
+
+    private static final Logger logger = Logger.getLogger(ScheduledFunction.class.getName());
+    @Override
+    public void service(HttpRequest request, HttpResponse response){
+
+        LocalDateTime currentTime = LocalDateTime.now();
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
+        String formattedTime = currentTime.format(formatter);
+
+        logger.info("Current Time: " + formattedTime);
+    }
+}</code>
+<br/>
+Deploy function as is done in question 1.
+<code>gcloud functions deploy HttpMethod
+    --entry-point com.example.GCPexamples.example1.HttpMethod
+    --runtime java17
+    --trigger-http
+    --memory 512MB
+    --region us-central1</code>
+    <br/>
+Use cloud scheduler on GCP to trigger the function on a set time. Set target type as HTTP, HTTP method as OPTIONS. Add URL of deployed function.
+Hit create scheduler.
+
+The function will be triggered periodically as was configured.
+<br/>
+<br/>
 <b>Question 3</b>
 
 Create a topic.
