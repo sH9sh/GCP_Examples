@@ -93,7 +93,9 @@ Deploy function with package and class name
 	--source=target
 </code>
 
+
 Publish message with command below 
+
 <code>
 	gcloud pubsub topics publish my-topic --message "Hello, World!"
 	View function logs to observe message
