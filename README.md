@@ -93,15 +93,14 @@ Deploy function with package and class name
 	--source=target
 </code>
 
-
+<br/>
 Publish message with command below 
 
 <code>
 	gcloud pubsub topics publish my-topic --message "Hello, World!"
 	View function logs to observe message
 </code>
-
-
+<br/> <br/>
 <b>Question 4</b>
 
 On GCP console - Create Pub/Sub topic.
