@@ -35,52 +35,47 @@ Add a PubSubMessage DTO class.
 
 
 <code>
-package com.example.GCPexamples.example3;
+	package com.example.GCPexamples.example3;
 
-import java.util.Map;
+	import java.util.Map;
 
-public class PubSubMessage {
-    private String data;
+	public class PubSubMessage {
+    		private String data;
 
-    private Map<String, String> attributes;
+    		private Map<String, String> attributes;
 
-    private String messageId;
+    		private String messageId;
 
-    private String publishTime;
+    		private String publishTime;
 
-    public String getData(){
-        return data;
+    		public String getData(){
+        	return data;}
+
+    		public void setData(String data){
+        		this.data = data;
     }
-
-    public void setData(String data){
-        this.data = data;
-    }
-
-    public Map<String, String> getAttributes(){
+	public Map<String, String> getAttributes(){
         return attributes;
     }
 
-    public void setAttributes(Map<String, String> attributes) {
+    	public void setAttributes(Map<String, String> attributes) {
         this.attributes = attributes;
     }
 
-    public String getPublishTime() {
+    	public String getPublishTime() {
         return publishTime;
     }
 
-    public void setPublishTime(String publishTime) {
+    	public void setPublishTime(String publishTime) {
         this.publishTime = publishTime;
     }
 
-    public String getMessageId() {
+    	public String getMessageId() {
         return messageId;
     }
 
-    public void setMessageId(String messageId) {
-        this.messageId = messageId;
-    }
-
-}
+    	public void setMessageId(String messageId) {
+        this.messageId = messageId;}}
 </code>
 
 Run maven clean package to generate new JAR file.
