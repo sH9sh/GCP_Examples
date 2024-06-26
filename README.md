@@ -31,9 +31,9 @@ Otherwise, add code for the function to be deployed. The class will implement th
 
         logger.info("Current Time: " + formattedTime);
     }}<code/>
-<br/>
+
 Ensure to add necessary dependencies like cloud functions. Also make sure to reference the function to be deployed under 'function-maven-plugin' inside functionTarget tags.
-<br/>
+
 Deploy function via gcloud command line:
 gcloud functions deploy HttpMethod
     --entry-point com.example.GCPexamples.example1.HttpMethod
