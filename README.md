@@ -1,4 +1,4 @@
-#Question 1
+# Question 1
 
 You can define a custom build process by adding a cloudbuild.yaml file. However you can also deploy via gcloud command line without this.
 This can be done by adding cloudbuild.yaml file.
@@ -44,7 +44,7 @@ Deploy function via gcloud command line:
 <br/>
 <br/>
 
-#Question 2
+# Question 2
 <br/>
 Add code for scheduled function. This also implements the HttpFunction interface and uses the service method. Add code to log the current time when the function is triggered.
 `public class ScheduledFunction implements HttpFunction {
@@ -76,7 +76,7 @@ The function will be triggered periodically as was configured.
 <br/>
 <br/>
 
-#Question 3
+# Question 3
 
 Create a topic.
 
@@ -179,7 +179,7 @@ Publish message with command below
 </code>
 <br/>
 
-<b> Question 4 </b>
+# Question 4
 
 On GCP console - Create Pub/Sub topic.
 
