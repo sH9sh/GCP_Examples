@@ -1,4 +1,4 @@
-<b>Question 1<b/>
+<b>Question 1</b>
 
 You can define a custom build process by adding a cloudbuild.yaml file. However you can also deploy via gcloud command line without this.
 This can be done by adding cloudbuild.yaml file.
