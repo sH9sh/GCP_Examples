@@ -1,8 +1,8 @@
-<b>Question 1</b>
+#Question 1
 
 You can define a custom build process by adding a cloudbuild.yaml file. However you can also deploy via gcloud command line without this.
 This can be done by adding cloudbuild.yaml file.
-steps:
+`steps:
   - name: 'gcr.io/google.com/cloudsdktool/cloud-sdk'
     args:
       - gcloud
@@ -13,14 +13,14 @@ steps:
       - --source=.
       - --trigger-http
       - --runtime=java17
-      - --entry-point com.example.GCPexamples.example5.PubSubFunction5
+      - --entry-point com.example.GCPexamples.example5.PubSubFunction5`
 
 This can then be triggered by the below command:
-gcloud builds submit --config cloudbuild.yaml .
+`gcloud builds submit --config cloudbuild.yaml .`
 <br/>
 
 Otherwise, add code for the function to be deployed. The class will implement the HttpFunction interface. It will use the service method which has two parameters - HttpRequest and HttpResponse.
-<code>public class HttpMethod implements HttpFunction {
+`public class HttpMethod implements HttpFunction {
     private static final Logger logger = Logger.getLogger(ScheduledFunction.class.getName());
     @Override
     public void service(HttpRequest request, HttpResponse response) throws Exception {
@@ -30,24 +30,24 @@ Otherwise, add code for the function to be deployed. The class will implement th
         String formattedTime = currentTime.format(formatter);
 
         logger.info("Current Time: " + formattedTime);
-    }}<code/>
+    }}`
 
 Ensure to add necessary dependencies like cloud functions. Also make sure to reference the function to be deployed under 'function-maven-plugin' inside functionTarget tags.
 
 Deploy function via gcloud command line:
-gcloud functions deploy HttpMethod
+`gcloud functions deploy HttpMethod
     --entry-point com.example.GCPexamples.example1.HttpMethod
     --runtime java17
     --trigger-http
     --memory 512MB
-    --region us-central1
+    --region us-central1`
 <br/>
 <br/>
 
-<b> Question 2 </b>
+#Question 2
 <br/>
 Add code for scheduled function. This also implements the HttpFunction interface and uses the service method. Add code to log the current time when the function is triggered.
-<code>public class ScheduledFunction implements HttpFunction {
+`public class ScheduledFunction implements HttpFunction {
 
     private static final Logger logger = Logger.getLogger(ScheduledFunction.class.getName());
     @Override
@@ -59,15 +59,15 @@ Add code for scheduled function. This also implements the HttpFunction interface
 
         logger.info("Current Time: " + formattedTime);
     }
-}</code>
+}`
 <br/>
 Deploy function as is done in question 1.
-gcloud functions deploy HttpMethod
+`gcloud functions deploy HttpMethod
     --entry-point com.example.GCPexamples.example1.HttpMethod
     --runtime java17
     --trigger-http
     --memory 512MB
-    --region us-central1
+    --region us-central1`
     <br/>
 Use cloud scheduler on GCP to trigger the function on a set time. Set target type as HTTP, HTTP method as OPTIONS. Add URL of deployed function.
 Hit create scheduler.
@@ -76,15 +76,15 @@ The function will be triggered periodically as was configured.
 <br/>
 <br/>
 
-<b>Question 3</b>
+#Question 3
 
 Create a topic.
 
 Add a subscription to topic.
 
-Add code to accept a pubSub message. 
+`Add code to accept a pubSub message. 
 
-<code>
+
 	package com.example.GCPexamples.example3;
 	import com.google.cloud.functions.BackgroundFunction;
   	import com.google.cloud.functions.Context;
@@ -106,55 +106,54 @@ Add code to accept a pubSub message.
         logger.info(String.format("Hello %s!", name));
         return;
     }
-}
-</code>
+}`
+
 
 Add a PubSubMessage DTO class. 
 
 
-<code>
-	package com.example.GCPexamples.example3;
+`package com.example.GCPexamples.example3;
 
-	import java.util.Map;
+import java.util.Map;
 
-	public class PubSubMessage {
-    		private String data;
+public class PubSubMessage {
+    	private String data;
 
-    		private Map<String, String> attributes;
+    	private Map<String, String> attributes;
 
-    		private String messageId;
+    	private String messageId;
 
-    		private String publishTime;
+    	private String publishTime;
 
-    		public String getData(){
-        	return data;}
+    	public String getData(){
+        return data;}
 
-    		public void setData(String data){
+    	public void setData(String data){
         		this.data = data;
-    }
+    	}
 	public Map<String, String> getAttributes(){
         return attributes;
-    }
+    	}
 
     	public void setAttributes(Map<String, String> attributes) {
         this.attributes = attributes;
-    }
+    	}
 
     	public String getPublishTime() {
         return publishTime;
-    }
+    	}
 
     	public void setPublishTime(String publishTime) {
         this.publishTime = publishTime;
-    }
+    	}
 
     	public String getMessageId() {
         return messageId;
-    }
+    	}
 
     	public void setMessageId(String messageId) {
-        this.messageId = messageId;}}
-</code>
+        this.messageId = messageId;}}`
+
 
 Run maven clean package to generate new JAR file.
 
