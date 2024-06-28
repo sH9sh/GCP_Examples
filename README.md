@@ -213,3 +213,29 @@ Publish message to pubsub topic with file-name and file content.
 Open cloud storage bucket on GCP to view file with ‘Hello World’ text.
 
 Delete all services afterwards to avoid extra charges.
+
+# Question 5
+This question involved writing a function triggered by pubsub topic which reads a JSON message. This message should be read to Cloud Storage as well as Big Query. A Big Query table needed to be created with schema.
+
+I followed example 5 from here [neueda/gcp examples](https://github.com/neueda/gcp-examples)
+
+I included model classes for node data (this also included schema for BQ table), pubsub body and pubsub message. Utils that handled serialising and deserialising Local Date Time. This converts Local Date Time to and from JSON. A Big query handler for creating a table, writing node data to BQ and creating an input stream. A storage handler to check if a bucket exists in cloud storage and to create one if not.
+
+Create PubSub topic on GCP console.
+
+Create service account on console with Storage Admin annd Big Query Data Editor permissions.
+
+Creare data-set in BQ on console.
+
+Deploy function to GCP.
+
+Send message on pubsub topic.
+`gcloud pubsub topics publish question5-topic --message="{\"nodeName\":\"node1\",\"timeStamp\":\"2023-09-25T14:53:45Z\",\"uplink\":1.23,\"downlink\":3.45}"`
+
+Read function logs.
+`gcloud functions logs read scenario-5-cloud-function-pubsub-trigger-java-jatin --gen2 --limit=20`
+
+Check file is in Cloud storage and BQ.
+
+Delete all services to avoid extra charges.
+
